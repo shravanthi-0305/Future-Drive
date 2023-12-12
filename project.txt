@@ -1,0 +1,424 @@
+<html>
+<head>
+<script>
+const sidebar = document.getelementbyclassname('sidebar')[0]; // get the sidebar
+element using its class name and getElementByClassName() method in JavaScript
+(since we're using multiple elements with this class name) and store it in a
+variable for easier access later. Const toggleBtn =
+document.queryselector('#toggle-btn'); // get the toggle button element using its
+ID and store it in a variable for easier access later.
+ToggleBtn.addeventlistener('click', () => { // add a click event listener to the
+toggle button element and define a callback function that will be executed when the
+user clicks on it. Sidebar.classList.toggle('show'); // toggle the 'show' class
+on/off the sidebar element using JavaScript's classList property and its toggle()
+method to show/hide it smoothly with a transition effect (defined in CSS). }
+const studentTable = document.querySelector('.student-table');
+const addStudentForm = document.getElementById('add-student-form');
+const studentList = [];
+fetchStudents();
+function fetchStudents() {
+fetch('https://your-server.com/students')
+.then(response => response.json())
+.then(data => {
+studentList = data;
+renderStudents();
+})
+.catch(error => console.error('Error:', error));
+}
+function renderStudents() {
+studentTable.innerHTML = '';
+const template = document.createElement('template');
+template.innerHTML = `<tr>
+<td>{{name}}</td>
+<td>{{id}}</td>
+<td>{{email}}</td>
+<td>{{phone}}</td>
+<td>{{address}}</td>
+<td><button class="delete-button"
+data-id="{{id}}">Delete</button></td>
+</tr>`;
+const rows = Array.from(template.content.querySelectorAll('tr'));
+const deleteButtons = document.querySelectorAll('.delete-button');
+rows.forEach((row, i) => {
+const { name, id, email, phone, address } = studentList[i];
+row.querySelector('[data-column="name"]').textContent = name;
+row.querySelector('[data-column="id"]').textContent = id;
+row.querySelector('[data-column="email"]').textContent = email;
+row.querySelector('[data-column="phone"]').textContent = phone;
+row.querySelector('[data-column="address"]').textContent = address;
+deleteButtons[i].dataset['id'] = id; // set data attribute 'id' of each delete
+button with corresponding ID value from fetched data array using JavaScript's
+destructuring assignment syntax and spread operator syntax: const { name, id,
+email, phone, address } = studentList[i]; // destructure object properties into
+separate variables for better readability and maintainability of code using
+JavaScript's destructuring assignment syntax: return rows; // return modified array
+with replaced placeholders and updated text content cells: }); // end of
+renderStudents() function definition } ```
+</script>
+</head>
+<style>
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+}
+body {
+font-family: Arial, sans-serif;
+background-color: #f2f2f2;
+}
+header {
+background-color: #fff;
+padding: 20px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.logo {
+font-size: 24px;
+font-weight: bold;
+}
+.login-btn {
+background-color: #4CAF50; /* Green color */
+color: #fff; /* White color */
+padding: 10px 20px; /* Padding */
+border: none; /* No border */
+border-radius: 5px; /* Rounded corners */
+cursor: pointer; /* Pointer on hover */
+}
+.search-form {
+display: flex; /* Display as a flexbox */
+}
+.input[type="text"] { /* Style for search input */
+padding: 10px; /* Padding */
+border: none; /* No border */
+border-radius: 5px; /* Rounded corners */
+}
+.button[type="submit"] { /* Style for search button */
+background-color: #4CAF50; /* Green color */
+color: #fff; /* White color */
+padding: 10px; /* Padding */
+border: none; /* No border */
+border-radius: 5px; /* Rounded corners */
+}
+.main { /* Style for main content section */
+padding: 40px; /* Padding */
+}
+.widget { /* Style for widgets section */
+background-color: #fff; /* White color */
+padding: 20px; /* Padding */
+margin-bottom: 20px; /* Margin between widgets */
+}
+.h2 { /* Style for widget headings */
+margin-top: 0; /* No margin at the top */
+}
+.p {
+/* Style for widget paragraphs with some padding between them and the borders
+removed */ padding: 10px; border: none;
+}
+.sidebar {
+width: 200px; /* set the width of the sidebar */
+height: 100%; /* set the height of the sidebar to fill the entire viewport */
+position: fixed; /* set the position to fixed */
+top: 0; /* set the top position to 0 */
+left: -200px; /* set the left position to -200px to hide the sidebar by default
+*/
+background-color: #f2f2f2; /* set the background color */
+padding: 20px; /* add some padding to make it more readable */
+transition: all .3s ease-in-out; /* add a smooth transition effect */
+}
+.sidebar ul {
+list-style: none; /* remove bullet points */
+margin: 0; /* remove margin */
+padding: 0; /* remove padding */
+}
+.sidebar li {
+margin: 20px; /* add some margin between list items */
+}
+.sidebar li a {
+/* set anchor tags as block elements */
+padding: 15px; /* add some padding to make it more readable */
+}
+.footer {
+padding: 60px; /* Adjust the padding value */
+text-align: center; /* Center align text */
+background-color: #333; /* Add a dark gray background color */
+}
+.footer ul li a {
+color: #fff; /* Change link color to white for contrast on dark background */
+text-decoration: none; /* Remove underline on hover */
+}
+student-table, .room-table {
+width: auto !important;
+max-width: calc(100% - (2 * var(--spacing)));
+margin-left: var(--spacing);
+margin-right: var(--spacing);
+border-collapse: collapse !important;
+}
+th, td {
+padding: var(--spacing) var(--spacing) var(--spacing) var(--spacing);
+border: none !important;
+}
+.calendar td, .calendar th {
+padding: var(--spacing) var(--spacing) var(--spacing) var(--spacing);
+border: none !important;
+}
+.report-list li a {
+text-decoration: none;
+}
+.form-group label, .form-group input[type="text"], .form-group input[type="email"],
+.form-group input[type="password"], .form-group select, .form-group textarea,
+.form-group button[type="submit"], .form-group button[type="reset"] {
+background-color: #fff !important;
+color: #4CAF50 !important;
+border: none !important;
+border-radius: var(--spacing) !important;
+outline: none !important;
+cursor: pointer !important;
+transition: all ease .3s !important;
+}
+button[type="submit"][disabled], button[type="reset"][disabled] {
+background: #f2f2f2 !important;
+color: #888888 !important;
+cursor: not-pointer !important;
+}
+button[type="submit"][disabled]:hover, button[type="reset"][disabled]:hover {
+background: #f2f2f2 !important;
+color: #888888 !important;
+cursor: not-pointer !important;
+}
+button[type="submit"] { /* Style for submit buttons with rounded corners and green
+background color when hovered over*/ background-color: #4CAF50 !important; color :
+#fff !important;; border : none !important;; border-radius : var(--spacing)
+!important;; outline : none !important;; cursor : pointer !important;; transition :
+all ease .3s !important;; }
+button[type="reset"] { /* Style for reset buttons with rounded corners and green
+background color when hovered over*/ background-color: #4CAF50 !important; color :
+#fff !important;; border : none !important;; border-radius : var(--spacing)
+!important;; outline : none !important;; cursor : pointer !important;; transition :
+all ease .3s !important;; }
+</style>
+<body>
+<header>
+<a href="#" class="logo">Hostel Management System</a>
+<button class="login-btn">Login/Logout</button>
+<form action="#" class="search-form"><input type="text" placeholder="Search...">
+<button type="submit"></button></form></header>
+<main>
+<section class="widget">
+<h2>Student Count</h2>
+<p>X</p>
+</section>
+<section class="widget">
+<h2>Room Availability</h2>
+<p>X rooms available</p>
+</section>
+</main>
+<nav class="sidebar">
+<ul>
+<li><a href="#student-info">Student Info</a></li>
+<li><a href="#room-assignment">Room Assignment</a></li>
+<li><a href="#attendance-tracking">Attendance Tracking</a></li>
+<li><a href="#reporting">Reporting</a></li>
+</ul>
+</nav>
+<footer>
+<ul>
+<li><a href="#terms-and-conditions">Terms and Conditions</a></li>
+<li><a href="#privacy-policy">Privacy Policy</a></li><li>
+<a href="#contact-us">Contact Us</a></li>
+</ul>
+</footer>
+<section id="student-info">
+<h2>Student Info</h2>
+<table class="student-table">
+<thead>
+<tr>
+<th>Name</th>
+<th>ID</th>
+<th>Email</th>
+<th>Phone Number</th>
+<th>Address</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<!-- form for adding new students -->
+<form id="add-student-form">
+<label for="name">Name:</label>
+<input type="text" id="name" name="name" required><br>
+<label for="email">Email:</label>
+<input type="email" id="email" name="email" required><br>
+<label for="phone">Phone:</label>
+<input type="tel" id="phone" name="phone" required><br>
+<label for="address">Address:</label>
+<textarea id="address" name="address"></textarea><br>
+<button type="submit">Add Student</button>
+</form>
+<style>
+#add-student-form {
+max-width: 500px;
+margin: auto;
+padding: 20px;
+border: 1px solid #ccc;
+}
+label {
+display: block;
+margin-bottom: 10px;
+}
+input[type=text], input[type=email], input[type=tel], textarea {
+width: 100%;
+padding: 10px;
+border: 1px solid #ccc;
+}
+.button[type=submit] {
+background-color: #4CAF50; /* Green */
+color: white; /* White text */
+padding: 10px; /* Some padding */
+border: none; /* Remove border */
+cursor: pointer; /* Pointer when hovering */
+}
+</style>
+</section>
+<section id="room-assignment">
+<h2>Room Assignment</h2>
+<script="room.js"></script>
+<!-- form for searching for a specific student -->
+<form id="search-form">
+<label for="search-query">Search:</label>
+<input type="text" id="search-query" name="search-query" required><br>
+<button type="submit">Search</button>
+</form>
+<table class="room-table">
+<thead>
+<tr>
+<th>Room Number</th>
+<th>Capacity</th>
+<th>Type of Room</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<table>
+<thead>
+<tr>
+<th>Student Name</th>
+<th>Room Number</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody id="room-assignments">
+<!-- dynamically generated rows will be added here -->
+</tbody>
+</table>
+<!-- form for assigning a room to a student -->
+<form id="assign-room-form">
+<label for="student">Student:</label>
+<select id="student" name="student" required><br>
+<!-- dynamically generated options will be added here -->
+</select><br>
+<label for="room">Room:</label>
+<select id="room" name="room" required><br>
+<!-- dynamically generated options will be added here -->
+</select><br>
+<button type="submit">Assign Room</button>
+</form>
+<style>
+#room-assignments {
+width: 100%; /* Set the width of the table to fill the entire container */
+}
+th, td { /* Style the table headers and data cells */
+padding: 10px; /* Add some padding to make the text more readable */
+}
+label { /* Style the form labels */
+display: block; /* Make labels appear as block elements */
+margin-bottom: 10px; /* Add some margin below each label */
+}
+select { /* Style the form select elements */
+width: 100%; /* Make select elements fill the entire width of their container */
+}
+button[type=submit] { /* Style the form submit button */
+background-color: #4CAF50; /* Green */ /* Set the background color of the submit
+button to green */
+color: white; /* White text */ /* Set the text color of the submit button to
+white */
+padding: 10px; /* Add some padding to make the button more readable */
+.search { max-width: 500px; margin: auto; padding: 20px; border: 1px solid #ccc; }
+.search label { display: block; margin: var(--spacing) var(--spacing)
+var(--spacing) var(--spacing); }
+.search input[type=text], .search button[type=submit] { width: 100%; padding:
+var(--spacing) var(--spacing); border: none; cursor: pointer; transition: all ease
+.3s; }
+.search button[type=submit] { background: #4CAF50; color: white; border: none;
+border-radius: var(--spacing); outline: none; }
+.search button[type=submit]:hover { background: #4CAF50; color: white; border:
+none; border-radius: var(--spacing); outline: none; }
+}
+</style>
+</section>
+<!-- section for attendance tracking -->
+<section id="attendance-tracking">
+<h2>Attendance Tracking</h2>
+<div class="calendar">
+<!-- HTML code for generating a calendar view -->
+</div>
+<!-- form for marking attendance for a student on a specific date -->
+<form id="mark-attendance-form">
+<label for="student">Student:</label>
+<select id="student" name="student" required><br>
+<!-- dynamically generated options will be added here -->
+</select><br>
+<label for="date">Date:</label>
+<input type="date" id="date" name="date" required><br>
+<button type="submit">Mark Attendance</button>
+</form>
+<!-- list of students with their attendance status for the selected date range
+-->
+<ul id="attendance-list"></ul>
+</section>
+<!-- section for reporting -->
+<section id="reporting">
+<h2>Reporting</h2>
+<ul class="report-list">
+<li><a href="#" data-report="absenteeism">Absenteeism Report</a></li>
+<li><a href="#" data-report="grade-distribution">Grade Distribution
+Report</a></li>
+<!-- ... -->
+</ul>
+<form id="generate-report-form">
+<label for="report">Report:</label>
+<select id="report" name="report" required><br>
+<!-- dynamically generated options will be added here -->
+</select><br>
+<!-- additional filtering options will be added here based on the selected
+report -->
+<button type="submit">Generate Report</button>
+</form>
+<style>
+.report-list { list-style: none; margin: 0; padding: 0; }
+.report-list li { margin: var(--spacing) var(--spacing) var(--spacing)
+var(--spacing); }
+.report-list li a { text-decoration: none; color: #4CAF50; }
+#generate-report-form { margin-top: var(--spacing); }
+#generate-report-form label { display: block; margin: var(--spacing) var(--spacing)
+var(--spacing) var(--spacing); }
+#generate-report-form select, #generate-report-form button[type="submit"] {
+background-color: #fff !important; color : #4CAF50 !important; border : none
+!important; border-radius : var(--spacing) !important; outline : none !important;
+cursor : pointer !important; transition : all ease .3s !important; }
+#generate-report-form button[type="submit"] { background-color: #4CAF50 !important;
+color : #fff !important;; border : none !important;; border-radius : var(--spacing)
+!important;; outline : none !important;; cursor : pointer !important;; transition :
+all ease .3s !important;; }
+#generate-report-form button[type="submit"][disabled],
+#generate-report-form button[type="reset"][disabled] { background : #f2f2f2
+!important;; color : #888888 !important;; cursor : not - pointer !important;; }
+#generate-report-form button[type="submit"][disabled]:hover,
+#generate-report-form button[type="reset"][disabled]:hover { background : #f2f2f2
+!important;; color : #888888 !important;; cursor : not - pointer !important; }
+</style>
+</section>
+</body>
+</html>
